@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -35,6 +36,7 @@ public class MainForm extends JLayeredPane {
 	private JButton menuButton;
 
 	public MainForm() {
+		System.out.println(Application.getInstance().getRole());
 		init();
 	}
 
@@ -77,7 +79,12 @@ public class MainForm extends JLayeredPane {
 			} else if (index == 1) {
 				Application.showForm(new FormScreeningManagement());
 			} else if (index == 2) {
-				Application.showForm(new FormStaffManagement());
+				if (Application.getInstance().getRole().equalsIgnoreCase("Manager")) {
+					Application.showForm(new FormStaffManagement());
+				} else {
+					JOptionPane.showMessageDialog(null, "This feature is only available for managers.", "Warning", 2);
+					action.cancel();
+				}
 			} else if (index == 3) {
 				Application.showForm(new FormCustomerManagement());
 			} else if (index == 4) {

@@ -18,33 +18,21 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import gui.application.form.LoginForm;
 import gui.application.form.MainForm;
-import raven.toast.Notifications;
 
 public class Application extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static Application app;
-	private final MainForm mainForm;
-	private final LoginForm loginForm;
+	private MainForm mainForm;
+	private LoginForm loginForm;
+	private String role;
 
 	private Application() {
 		initComponents();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
-		mainForm = new MainForm();
 		loginForm = new LoginForm();
-
-//		setContentPane(loginForm);
+		setContentPane(loginForm);
 		app = this;
-
-		FlatAnimatedLafChange.showSnapshot();
-		app.setContentPane(app.mainForm);
-		app.mainForm.applyComponentOrientation(app.getComponentOrientation());
-		Application.setSelectedMenu(0, 0);
-		app.mainForm.hideMenu();
-		SwingUtilities.updateComponentTreeUI(app.getMainForm());
-		FlatAnimatedLafChange.hideSnapshotWithAnimation();
-		Notifications.getInstance().setJFrame(this);
-
 	}
 
 	public static Application getInstance() {
@@ -57,6 +45,18 @@ public class Application extends JFrame {
 
 	public LoginForm getLoginForm() {
 		return loginForm;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public void createMainForm() {
+		mainForm = new MainForm();
 	}
 
 	public static void showForm(Component component) {
@@ -78,7 +78,6 @@ public class Application extends JFrame {
 	}
 
 	private void initComponents() {
-
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setUndecorated(true);
 
@@ -106,4 +105,5 @@ public class Application extends JFrame {
 			new Application().setVisible(true);
 		});
 	}
+
 }

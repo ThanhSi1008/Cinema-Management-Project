@@ -44,8 +44,8 @@ public class LoginForm extends JPanel {
 		addEvents();
 
 		// test
-		txtUser.setText("admin");
-		txtPass.setText("123");
+//		txtUser.setText("admin");
+//		txtPass.setText("123");
 	}
 
 	public void resetLogin() {
@@ -72,11 +72,16 @@ public class LoginForm extends JPanel {
 		cmdLogin.addActionListener(e -> {
 			String username = txtUser.getText().trim();
 			String password = new String(txtPass.getPassword());
+
 			boolean isValid = ctrl_LoginForm.checkCredentials(username, password);
+			String role = ctrl_LoginForm.getRole(username);
+
 			if (!isValid) {
 				JOptionPane.showMessageDialog(this, "User name or password is incorrect!", "Error", 0);
 				Application.getInstance().getLoginForm().resetLogin();
 			} else {
+				Application.getInstance().setRole(role);
+				Application.getInstance().createMainForm();
 				FlatAnimatedLafChange.showSnapshot();
 				Application.getInstance().setContentPane(Application.getInstance().getMainForm());
 				Application.getInstance().getMainForm()
@@ -99,7 +104,6 @@ public class LoginForm extends JPanel {
 
 		txtUser.addKeyListener(keyEnterListener);
 		txtPass.addKeyListener(keyEnterListener);
-
 	}
 
 	private void initComponents() {

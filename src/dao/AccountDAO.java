@@ -62,5 +62,29 @@ public class AccountDAO {
 
 		return n > 0;
 	}
+	
+	public String getRoleByUsername(String username) {
+		String role = null;
+		Connection connection = connectDB.getConnection();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			String sqlQuery = "SELECT * FROM Emp_Acc(?)";
+			statement = connection.prepareStatement(sqlQuery);
+			statement.setString(1, username);
+			resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				role = resultSet.getString("Role"); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			connectDB.close(statement, resultSet);
+		}
+
+		return role;
+	}
 
 }
