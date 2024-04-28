@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="lib/mssql-jdbc-12.6.1.jre11.jar"/>
 	<classpathentry kind="lib" path="lib/swing-chart-1.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/swing-toast-notifications-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/TimePicker.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
