@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -25,25 +24,23 @@ import gui.application.form.other.FormCustomerManagement;
 import gui.application.form.other.FormDashboard;
 import gui.application.form.other.FormMovieManagement;
 import gui.application.form.other.FormScreeningManagement;
-import gui.application.form.other.FormStaffManagement;
-import gui.menu.Menu;
+import gui.menu.EmployeeMenu;
 import gui.menu.MenuAction;
 
-public class MainForm extends JLayeredPane {
+public class EmployeeForm extends JLayeredPane {
 	private static final long serialVersionUID = 1L;
-	private Menu menu;
+	private EmployeeMenu menu;
 	private JPanel panelBody;
 	private JButton menuButton;
 
-	public MainForm() {
-		System.out.println(Application.getInstance().getRole());
+	public EmployeeForm() {
 		init();
 	}
 
 	private void init() {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(new MainFormLayout());
-		menu = new Menu();
+		menu = new EmployeeMenu();
 		panelBody = new JPanel(new BorderLayout());
 		initMenuArrowIcon();
 		menuButton.putClientProperty(FlatClientProperties.STYLE,
@@ -74,54 +71,69 @@ public class MainForm extends JLayeredPane {
 
 	private void initMenuEvent() {
 		menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
-			if (index == 0) {
-				Application.showForm(new FormMovieManagement());
-			} else if (index == 1) {
-				Application.showForm(new FormScreeningManagement());
-			} else if (index == 2) {
-				if (Application.getInstance().getRole().equalsIgnoreCase("Manager")) {
-					Application.showForm(new FormStaffManagement());
-				} else {
-					JOptionPane.showMessageDialog(null, "This feature is only available for managers.", "Warning", 2);
+			switch (index) {
+			case 0:
+				Application.showEmployeeForm(new FormMovieManagement());
+				break;
+			case 1:
+				Application.showEmployeeForm(new FormScreeningManagement());
+				break;
+			case 2:
+				Application.showEmployeeForm(new FormCustomerManagement());
+				break;
+			case 3:
+				switch (subIndex) {
+				case 1:
+					Application.showEmployeeForm(new DefaultForm("Product - Foods"));
+					break;
+				case 2:
+					Application.showEmployeeForm(new DefaultForm("Product - Drinks"));
+					break;
+				default:
 					action.cancel();
+					break;
 				}
-			} else if (index == 3) {
-				Application.showForm(new FormCustomerManagement());
-			} else if (index == 4) {
-				if (subIndex == 1) {
-					Application.showForm(new DefaultForm("Product - Foods"));
-				} else if (subIndex == 2) {
-					Application.showForm(new DefaultForm("Product - Drinks"));
-				} else {
+				break;
+			case 4:
+				switch (subIndex) {
+				case 1:
+					Application.showEmployeeForm(new FormDashboard());
+					break;
+				case 2:
+					Application.showEmployeeForm(new DefaultForm("Statistics - customer"));
+					break;
+				case 3:
+					Application.showEmployeeForm(new DefaultForm("Statistics - movie"));
+					break;
+				case 4:
+					Application.showEmployeeForm(new DefaultForm("Statistics - product"));
+					break;
+				default:
 					action.cancel();
+					break;
 				}
-			} else if (index == 5) {
-				if (subIndex == 1) {
-					Application.showForm(new FormDashboard());
-				} else if (subIndex == 2) {
-					Application.showForm(new DefaultForm("Statistics - customer"));
-				} else if (subIndex == 3) {
-					Application.showForm(new DefaultForm("Statistics - movie"));
-				} else if (subIndex == 4) {
-					Application.showForm(new DefaultForm("Statistics - product"));
-				} else {
+				break;
+			case 5:
+				switch (subIndex) {
+				case 1:
+					Application.showEmployeeForm(new DefaultForm("Profile - infomation"));
+					break;
+				case 2:
+					Application.showEmployeeForm(new DefaultForm("Profile - change password"));
+					break;
+				default:
 					action.cancel();
+					break;
 				}
-			} else if (index == 6) {
-				if (subIndex == 1) {
-					Application.showForm(new DefaultForm("Profile - infomation"));
-				} else if (subIndex == 2) {
-					Application.showForm(new DefaultForm("Profile - change password"));
-				} else {
-					action.cancel();
-				}
-			} else if (index == 7) {
+				break;
+			case 6:
 				Application.logout();
-			} else {
+				break;
+			default:
 				action.cancel();
+				break;
 			}
 		});
-
 	}
 
 	private void setMenuFull(boolean full) {

@@ -18,10 +18,10 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
 
+import gui.menu.mode.EmployeeToolBarAccentColor;
 import gui.menu.mode.LightDarkMode;
-import gui.menu.mode.ToolBarAccentColor;
 
-public class Menu extends JPanel {
+public class EmployeeMenu extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final List<MenuEvent> events = new ArrayList<>();
@@ -34,14 +34,14 @@ public class Menu extends JPanel {
 	protected final int menuMinWidth = 60;
 	protected final int headerFullHgap = 5;
 	private final String menuItems[][] = { { "~Management~" }, { "Movie Management" }, { "Screening Management" },
-			{ "Staff Management" }, { "Customer" }, { "Product Management", "Foods", "Drinks" }, { "~Other~" },
+			{ "Customer" }, { "Product Management", "Foods", "Drinks" }, { "~Other~" },
 			{ "Statistics", "General", "Customer", "Movie", "Product" }, { "Profile", "Infomation", "Change Password" },
 			{ "Logout" } };
 	private JLabel header;
 	private JScrollPane scroll;
 	private JPanel panelMenu;
 	private LightDarkMode lightDarkMode;
-	private ToolBarAccentColor toolBarAccentColor;
+	private EmployeeToolBarAccentColor toolBarAccentColor;
 
 	public boolean isMenuFull() {
 		return menuFull;
@@ -57,15 +57,15 @@ public class Menu extends JPanel {
 			header.setHorizontalAlignment(JLabel.CENTER);
 		}
 		for (Component com : panelMenu.getComponents()) {
-			if (com instanceof MenuItem) {
-				((MenuItem) com).setFull(menuFull);
+			if (com instanceof ManagerMenuItem) {
+				((ManagerMenuItem) com).setFull(menuFull);
 			}
 		}
 		lightDarkMode.setMenuFull(menuFull);
 		toolBarAccentColor.setMenuFull(menuFull);
 	}
 
-	public Menu() {
+	public EmployeeMenu() {
 		init();
 	}
 
@@ -80,7 +80,7 @@ public class Menu extends JPanel {
 
 		// Menu
 		scroll = new JScrollPane();
-		panelMenu = new JPanel(new MenuItemLayout(this));
+		panelMenu = new JPanel(new EmployeeMenuItemLayout(this));
 		panelMenu.putClientProperty(FlatClientProperties.STYLE, "" + "border:5,5,5,5;" + "background:$Menu.background");
 
 		scroll.setViewportView(panelMenu);
@@ -93,7 +93,7 @@ public class Menu extends JPanel {
 						+ "thumb:$Menu.ScrollBar.thumb");
 		createMenu();
 		lightDarkMode = new LightDarkMode();
-		toolBarAccentColor = new ToolBarAccentColor(this);
+		toolBarAccentColor = new EmployeeToolBarAccentColor(this);
 		toolBarAccentColor.setVisible(FlatUIUtils.getUIBoolean("AccentControl.show", false));
 		add(header);
 		add(scroll);
@@ -108,7 +108,7 @@ public class Menu extends JPanel {
 			if (menuName.startsWith("~") && menuName.endsWith("~")) {
 				panelMenu.add(createTitle(menuName));
 			} else {
-				MenuItem menuItem = new MenuItem(this, menuItems[i], index++, events);
+				EmployeeMenuItem menuItem = new EmployeeMenuItem(this, menuItems[i], index++, events);
 				panelMenu.add(menuItem);
 			}
 		}
@@ -130,8 +130,8 @@ public class Menu extends JPanel {
 		int size = panelMenu.getComponentCount();
 		for (int i = 0; i < size; i++) {
 			Component com = panelMenu.getComponent(i);
-			if (com instanceof MenuItem) {
-				MenuItem item = (MenuItem) com;
+			if (com instanceof ManagerMenuItem) {
+				ManagerMenuItem item = (ManagerMenuItem) com;
 				if (item.getMenuIndex() == index) {
 					item.setSelectedIndex(subIndex);
 				} else {
@@ -157,8 +157,8 @@ public class Menu extends JPanel {
 
 	public void hideMenuItem() {
 		for (Component com : panelMenu.getComponents()) {
-			if (com instanceof MenuItem) {
-				((MenuItem) com).hideMenuItem();
+			if (com instanceof ManagerMenuItem) {
+				((ManagerMenuItem) com).hideMenuItem();
 			}
 		}
 		revalidate();

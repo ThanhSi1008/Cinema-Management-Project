@@ -10,11 +10,11 @@ import javax.swing.JLabel;
 
 import com.formdev.flatlaf.util.UIScale;
 
-public class MenuItemLayout implements LayoutManager {
+public class EmployeeMenuItemLayout implements LayoutManager {
 
-	private final Menu menu;
+	private final EmployeeMenu menu;
 
-	public MenuItemLayout(Menu menu) {
+	public EmployeeMenuItemLayout(EmployeeMenu menu) {
 		this.menu = menu;
 	}
 

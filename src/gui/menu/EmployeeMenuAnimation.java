@@ -1,13 +1,14 @@
 package gui.menu;
 
-import com.formdev.flatlaf.util.Animator;
 import java.util.HashMap;
 
-public class MenuAnimation {
+import com.formdev.flatlaf.util.Animator;
 
-    private static final HashMap<MenuItem, Animator> hash = new HashMap<>();
+public class EmployeeMenuAnimation {
 
-    public static void animate(MenuItem menu, boolean show) {
+    private static final HashMap<EmployeeMenuItem, Animator> hash = new HashMap<>();
+
+    public static void animate(EmployeeMenuItem menu, boolean show) {
         if (hash.containsKey(menu) && hash.get(menu).isRunning()) {
             hash.get(menu).stop();
         }

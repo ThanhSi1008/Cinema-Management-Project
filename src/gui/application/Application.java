@@ -16,15 +16,16 @@ import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
+import gui.application.form.EmployeeForm;
 import gui.application.form.LoginForm;
-import gui.application.form.MainForm;
+import gui.application.form.ManagerForm;
 
 public class Application extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static Application app;
-	private MainForm mainForm;
+	private ManagerForm mainForm;
+	private EmployeeForm employeeForm;
 	private LoginForm loginForm;
-	private String role;
 
 	private Application() {
 		initComponents();
@@ -39,7 +40,7 @@ public class Application extends JFrame {
 		return app;
 	}
 
-	public MainForm getMainForm() {
+	public ManagerForm getMainForm() {
 		return mainForm;
 	}
 
@@ -47,21 +48,30 @@ public class Application extends JFrame {
 		return loginForm;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public void createMainForm() {
-		mainForm = new MainForm();
+		mainForm = new ManagerForm();
 	}
 
-	public static void showForm(Component component) {
+	public void createEmployeeForm() {
+		employeeForm = new EmployeeForm();
+	}
+
+	public EmployeeForm getEmployeeForm() {
+		return employeeForm;
+	}
+
+	public void setEmployeeForm(EmployeeForm employeeForm) {
+		this.employeeForm = employeeForm;
+	}
+
+	public static void showManagerForm(Component component) {
 		component.applyComponentOrientation(app.getComponentOrientation());
 		app.mainForm.showForm(component);
+	}
+	
+	public static void showEmployeeForm(Component component) {
+		component.applyComponentOrientation(app.getComponentOrientation());
+		app.employeeForm.showForm(component);
 	}
 
 	public static void logout() {
@@ -73,8 +83,12 @@ public class Application extends JFrame {
 		FlatAnimatedLafChange.hideSnapshotWithAnimation();
 	}
 
-	public static void setSelectedMenu(int index, int subIndex) {
+	public static void setSelectedMenuForManager(int index, int subIndex) {
 		app.mainForm.setSelectedMenu(index, subIndex);
+	}
+	
+	public static void setSelectedMenuForEmployee(int index, int subIndex) {
+		app.employeeForm.setSelectedMenu(index, subIndex);
 	}
 
 	private void initComponents() {

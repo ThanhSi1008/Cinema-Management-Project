@@ -72,24 +72,34 @@ public class LoginForm extends JPanel {
 		cmdLogin.addActionListener(e -> {
 			String username = txtUser.getText().trim();
 			String password = new String(txtPass.getPassword());
-
 			boolean isValid = ctrl_LoginForm.checkCredentials(username, password);
 			String role = ctrl_LoginForm.getRole(username);
+			Application app = Application.getInstance();
 
 			if (!isValid) {
 				JOptionPane.showMessageDialog(this, "User name or password is incorrect!", "Error", 0);
 				Application.getInstance().getLoginForm().resetLogin();
 			} else {
-				Application.getInstance().setRole(role);
-				Application.getInstance().createMainForm();
-				FlatAnimatedLafChange.showSnapshot();
-				Application.getInstance().setContentPane(Application.getInstance().getMainForm());
-				Application.getInstance().getMainForm()
-						.applyComponentOrientation(Application.getInstance().getComponentOrientation());
-				Application.setSelectedMenu(0, 0);
-				Application.getInstance().getMainForm().hideMenu();
-				SwingUtilities.updateComponentTreeUI(Application.getInstance().getMainForm());
-				FlatAnimatedLafChange.hideSnapshotWithAnimation();
+				if (role.equalsIgnoreCase("Manager")) {
+					app.createMainForm();
+					FlatAnimatedLafChange.showSnapshot();
+					app.setContentPane(app.getMainForm());
+					app.getMainForm().applyComponentOrientation(app.getComponentOrientation());
+					Application.setSelectedMenuForManager(0, 0);
+					app.getMainForm().hideMenu();
+					SwingUtilities.updateComponentTreeUI(app.getMainForm());
+					FlatAnimatedLafChange.hideSnapshotWithAnimation();
+				} else {
+					app.createEmployeeForm();
+					FlatAnimatedLafChange.showSnapshot();
+					app.setContentPane(app.getEmployeeForm());
+					app.getEmployeeForm().applyComponentOrientation(app.getComponentOrientation());
+					Application.setSelectedMenuForEmployee(0, 0);
+					app.getEmployeeForm().hideMenu();
+					SwingUtilities.updateComponentTreeUI(app.getEmployeeForm());
+					FlatAnimatedLafChange.hideSnapshotWithAnimation();
+				}
+
 			}
 		});
 

@@ -24,11 +24,11 @@ import com.formdev.flatlaf.util.ColorFunctions;
 import com.formdev.flatlaf.util.LoggingFacade;
 import com.formdev.flatlaf.util.UIScale;
 
-import gui.menu.Menu;
+import gui.menu.ManagerMenu;
 
-public class ToolBarAccentColor extends JPanel {
+public class ManagerToolBarAccentColor extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private final Menu menu;
+	private final ManagerMenu menu;
 	private final JPopupMenu popup = new JPopupMenu();
 
 	public boolean isMenuFull() {
@@ -53,7 +53,7 @@ public class ToolBarAccentColor extends JPanel {
 	private final String[] accentColorNames = { "Default", "Blue", "Purple", "Red", "Orange", "Yellow", "Green", };
 	private boolean menuFull = true;
 
-	public ToolBarAccentColor(Menu menu) {
+	public ManagerToolBarAccentColor(ManagerMenu menu) {
 		this.menu = menu;
 		init();
 	}
@@ -82,7 +82,7 @@ public class ToolBarAccentColor extends JPanel {
 		selectedButton.addActionListener((ActionEvent e) -> {
 			int y = (selectedButton.getPreferredSize().height - (toolbar.getPreferredSize().height + UIScale.scale(10)))
 					/ 2;
-			show(ToolBarAccentColor.this, (int) getWidth() + UIScale.scale(4), y);
+			show(ManagerToolBarAccentColor.this, (int) getWidth() + UIScale.scale(4), y);
 		});
 		for (int i = 0; i < accentColorNames.length; i++) {
 			String key = accentColorKeys[i];

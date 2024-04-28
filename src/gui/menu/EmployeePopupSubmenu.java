@@ -22,16 +22,16 @@ import javax.swing.SwingUtilities;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
 
-public class PopupSubmenu extends JPanel {
+public class EmployeePopupSubmenu extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private final Menu menu;
+	private final EmployeeMenu menu;
 	private final int menuIndex;
 	private final int subMenuLeftGap = 20;
 	private final int subMenuItemHeight = 30;
 	private final String menus[];
 	private JPopupMenu popup;
 
-	public PopupSubmenu(ComponentOrientation orientation, Menu menu, int menuIndex, String menus[]) {
+	public EmployeePopupSubmenu(ComponentOrientation orientation, EmployeeMenu menu, int menuIndex, String menus[]) {
 		this.menu = menu;
 		this.menuIndex = menuIndex;
 		this.menus = menus;

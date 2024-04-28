@@ -24,10 +24,10 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
 
-public class MenuItem extends JPanel {
+public class ManagerMenuItem extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final List<MenuEvent> events;
-	private final Menu menu;
+	private ManagerMenu menu;
 	private final String menus[];
 	private final int menuIndex;
 	private final int menuItemHeight = 38;
@@ -37,9 +37,9 @@ public class MenuItem extends JPanel {
 	private final int bottomGap = 5;
 	private boolean menuShow;
 	private float animate;
-	private PopupSubmenu popup;
+	private ManagerPopupSubmenu popup;
 
-	public MenuItem(Menu menu, String menus[], int menuIndex, List<MenuEvent> events) {
+	public ManagerMenuItem(ManagerMenu menu, String menus[], int menuIndex, List<MenuEvent> events) {
 		this.menu = menu;
 		this.menus = menus;
 		this.menuIndex = menuIndex;
@@ -94,9 +94,9 @@ public class MenuItem extends JPanel {
 				menuItem.addActionListener((ActionEvent e) -> {
 					if (menus.length > 1) {
 						if (menu.isMenuFull()) {
-							MenuAnimation.animate(MenuItem.this, !menuShow);
+							ManagerMenuAnimation.animate(ManagerMenuItem.this, !menuShow);
 						} else {
-							popup.show(MenuItem.this, (int) MenuItem.this.getWidth() + UIScale.scale(5),
+							popup.show(ManagerMenuItem.this, (int) ManagerMenuItem.this.getWidth() + UIScale.scale(5),
 									UIScale.scale(menuItemHeight) / 2);
 						}
 					} else {
@@ -111,7 +111,7 @@ public class MenuItem extends JPanel {
 			}
 			add(menuItem);
 		}
-		popup = new PopupSubmenu(getComponentOrientation(), menu, menuIndex, menus);
+		popup = new ManagerPopupSubmenu(getComponentOrientation(), menu, menuIndex, menus);
 	}
 
 	protected void setSelectedIndex(int index) {
