@@ -23,7 +23,7 @@ import gui.application.form.ManagerForm;
 public class Application extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static Application app;
-	private ManagerForm mainForm;
+	private ManagerForm managerForm;
 	private EmployeeForm employeeForm;
 	private LoginForm loginForm;
 
@@ -40,38 +40,42 @@ public class Application extends JFrame {
 		return app;
 	}
 
-	public ManagerForm getMainForm() {
-		return mainForm;
-	}
-
-	public LoginForm getLoginForm() {
-		return loginForm;
-	}
-
-	public void createMainForm() {
-		mainForm = new ManagerForm();
-	}
-
-	public void createEmployeeForm() {
-		employeeForm = new EmployeeForm();
+	public ManagerForm getManagerForm() {
+		return managerForm;
 	}
 
 	public EmployeeForm getEmployeeForm() {
 		return employeeForm;
 	}
 
-	public void setEmployeeForm(EmployeeForm employeeForm) {
-		this.employeeForm = employeeForm;
+	public LoginForm getLoginForm() {
+		return loginForm;
+	}
+
+	public void createManagerForm() {
+		managerForm = new ManagerForm();
+	}
+
+	public void createEmployeeForm() {
+		employeeForm = new EmployeeForm();
 	}
 
 	public static void showManagerForm(Component component) {
 		component.applyComponentOrientation(app.getComponentOrientation());
-		app.mainForm.showForm(component);
+		app.managerForm.showForm(component);
 	}
-	
+
 	public static void showEmployeeForm(Component component) {
 		component.applyComponentOrientation(app.getComponentOrientation());
 		app.employeeForm.showForm(component);
+	}
+
+	public static void setSelectedMenuForManager(int index, int subIndex) {
+		app.managerForm.setSelectedMenu(index, subIndex);
+	}
+
+	public static void setSelectedMenuForEmployee(int index, int subIndex) {
+		app.employeeForm.setSelectedMenu(index, subIndex);
 	}
 
 	public static void logout() {
@@ -81,14 +85,6 @@ public class Application extends JFrame {
 		app.loginForm.applyComponentOrientation(app.getComponentOrientation());
 		SwingUtilities.updateComponentTreeUI(app.loginForm);
 		FlatAnimatedLafChange.hideSnapshotWithAnimation();
-	}
-
-	public static void setSelectedMenuForManager(int index, int subIndex) {
-		app.mainForm.setSelectedMenu(index, subIndex);
-	}
-	
-	public static void setSelectedMenuForEmployee(int index, int subIndex) {
-		app.employeeForm.setSelectedMenu(index, subIndex);
 	}
 
 	private void initComponents() {

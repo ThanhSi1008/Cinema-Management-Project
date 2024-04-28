@@ -81,13 +81,13 @@ public class LoginForm extends JPanel {
 				Application.getInstance().getLoginForm().resetLogin();
 			} else {
 				if (role.equalsIgnoreCase("Manager")) {
-					app.createMainForm();
+					app.createManagerForm();
 					FlatAnimatedLafChange.showSnapshot();
-					app.setContentPane(app.getMainForm());
-					app.getMainForm().applyComponentOrientation(app.getComponentOrientation());
+					app.setContentPane(app.getManagerForm());
+					app.getManagerForm().applyComponentOrientation(app.getComponentOrientation());
 					Application.setSelectedMenuForManager(0, 0);
-					app.getMainForm().hideMenu();
-					SwingUtilities.updateComponentTreeUI(app.getMainForm());
+					app.getManagerForm().hideMenu();
+					SwingUtilities.updateComponentTreeUI(app.getManagerForm());
 					FlatAnimatedLafChange.hideSnapshotWithAnimation();
 				} else {
 					app.createEmployeeForm();
