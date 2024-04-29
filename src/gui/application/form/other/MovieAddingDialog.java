@@ -35,7 +35,7 @@ import entity.Movie;
 import net.miginfocom.swing.MigLayout;
 import raven.crazypanel.CrazyPanel;
 
-public class AddMovieDialog extends JDialog implements ActionListener {
+public class MovieAddingDialog extends JDialog implements ActionListener {
 
 	final JFileChooser fc = new JFileChooser();
 	private CrazyPanel container;
@@ -81,7 +81,7 @@ public class AddMovieDialog extends JDialog implements ActionListener {
 	private MovieDAO movieDAO;
 	private MovieTableModel movieTableModel;
 
-	public AddMovieDialog() {
+	public MovieAddingDialog() {
 		movieDAO = new MovieDAO();
 		setLayout(new BorderLayout());
 		initComponents();

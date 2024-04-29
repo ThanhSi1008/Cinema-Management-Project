@@ -28,7 +28,7 @@ public class FormMovieManagement extends JPanel {
 	private JComboBox<String> comboBoxFilter;
 	private JTable tableMovies;
 
-	private AddMovieDialog addMovieDialog;
+	private MovieAddingDialog addMovieDialog;
 
 	private MovieTableModel movieTableModel;
 
@@ -41,7 +41,7 @@ public class FormMovieManagement extends JPanel {
 	private void addEvents() {
 		btnAddMovie.addActionListener(e -> {
 			Thread thread = new Thread(() -> {
-				addMovieDialog = new AddMovieDialog();
+				addMovieDialog = new MovieAddingDialog();
 				addMovieDialog.setMovieTableModel(movieTableModel);
 				addMovieDialog.setModal(true);
 				addMovieDialog.setVisible(true);

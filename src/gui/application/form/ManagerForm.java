@@ -23,6 +23,7 @@ import gui.application.form.other.DefaultForm;
 import gui.application.form.other.FormCustomerManagement;
 import gui.application.form.other.FormDashboard;
 import gui.application.form.other.FormMovieManagement;
+import gui.application.form.other.FormMovieManagementv2;
 import gui.application.form.other.FormScreeningManagement;
 import gui.application.form.other.FormStaffManagement;
 import gui.menu.ManagerMenu;
@@ -74,7 +75,7 @@ public class ManagerForm extends JLayeredPane {
 		menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
 			switch (index) {
 			case 0:
-				Application.showManagerForm(new FormMovieManagement());
+				Application.showManagerForm(new FormMovieManagementv2());
 				break;
 			case 1:
 				Application.showManagerForm(new FormScreeningManagement());

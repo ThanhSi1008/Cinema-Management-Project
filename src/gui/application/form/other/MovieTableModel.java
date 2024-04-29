@@ -12,12 +12,33 @@ public class MovieTableModel extends AbstractTableModel {
 	
 	private static final long serialVersionUID = 1L;
 	private List<Movie> movieList;
-	private String[] columnNames = { "Name", "Status", "Duration" };
+	private String[] columnNames = { "ID", "Name", "Status", "Duration" };
 	private MovieDAO movieDAO;	
 
 	public MovieTableModel() {
 		movieDAO = new MovieDAO();
 		movieList = movieDAO.getAllMovie();
+	}
+
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return false;
+	}
+
+	@Override
+	public Class<?> getColumnClass(int columnIndex) {
+		switch (columnIndex) {
+		case 0:
+			return String.class;
+		case 1:
+			return String.class;
+		case 2:
+			return String.class;
+		case 3:
+			return String.class;
+		default:
+			return null;
+		}
 	}
 
 	@Override
@@ -32,7 +53,7 @@ public class MovieTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 3;
+		return 4;
 	}
 
 	@Override
@@ -40,10 +61,12 @@ public class MovieTableModel extends AbstractTableModel {
 		Movie movie = movieList.get(rowIndex);
 		switch (columnIndex) {
 			case 0:
-				return movie.getMovieName();
+				return movie.getMovieID();
 			case 1:
-				return movie.getStatus();
+				return movie.getMovieName();
 			case 2:
+				return movie.getStatus();
+			case 3:
 				int durationInt = movie.getDuration();
 				Duration duration = Duration.ofMinutes(durationInt);
 				long hours = duration.toHours();
