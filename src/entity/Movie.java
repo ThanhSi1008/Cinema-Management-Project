@@ -10,7 +10,7 @@ public class Movie {
 	private String description;
 	private String genre;
 	private String director;
-	private Duration duration;
+	private int duration;
 	private LocalDate releasedDate;
 	private String language;
 	private String country;
@@ -18,15 +18,15 @@ public class Movie {
 	private LocalDate startDate;
 	private String status;
 	private double importPrice;
-	private byte[] imageSource;
+	private String imageSource;
 
 	public Movie() {
 		super();
 	}
 
-	public Movie(String movieName, String description, String genre, String director, Duration duration,
+	public Movie(String movieName, String description, String genre, String director, int duration,
 			LocalDate releasedDate, String language, String country, String trailer, LocalDate startDate, String status,
-			double importPrice, byte[] imageSource) {
+			double importPrice, String imageSource) {
 		super();
 		this.movieName = movieName;
 		this.description = description;
@@ -43,7 +43,7 @@ public class Movie {
 		this.imageSource = imageSource;
 	}
 
-	public Movie(String name, String status, Duration duration) {
+	public Movie(String name, String status, int duration) {
 		this.movieName = name;
 		this.status = status;
 		this.duration = duration;
@@ -85,11 +85,11 @@ public class Movie {
 		this.director = director;
 	}
 
-	public Duration getDuration() {
+	public int getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Duration duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 
@@ -149,11 +149,11 @@ public class Movie {
 		this.importPrice = importPrice;
 	}
 
-	public byte[] getImageSource() {
+	public String getImageSource() {
 		return imageSource;
 	}
 
-	public void setImageSource(byte[] imageSource) {
+	public void setImageSource(String imageSource) {
 		this.imageSource = imageSource;
 	}
 
@@ -163,7 +163,7 @@ public class Movie {
 				+ genre + ", director=" + director + ", duration=" + duration + ", releasedDate=" + releasedDate
 				+ ", language=" + language + ", country=" + country + ", trailer=" + trailer + ", startDate="
 				+ startDate + ", status=" + status + ", importPrice=" + importPrice + ", imageSource="
-				+ Arrays.toString(imageSource) + "]";
+				+ imageSource;
 	}
 
 }

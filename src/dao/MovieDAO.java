@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,7 @@ public class MovieDAO {
 			while (resultSet.next()) {
 				String name = resultSet.getString("MovieName");
 				String status = resultSet.getString("Status");
-				int durationNum = resultSet.getInt("duration");
-				Duration duration = Duration.ofMinutes(durationNum);
+				int duration = resultSet.getInt("duration");
 				movieList.add(new Movie(name, status, duration));
 			}
 		} catch (SQLException e) {
@@ -44,6 +44,33 @@ public class MovieDAO {
 		}
 
 		return movieList;
+	}
+
+	public void addNewMovie(Movie newMovie) {
+		Connection connection = connectDB.getConnection();
+		String insertSQL = "INSERT INTO Movie (MovieName, Description, Genre, Director, Duration, ReleasedDate, Language, Country, Trailer, StartDate, Status, ImportPrice, ImageSource)"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
+            preparedStatement.setString(1, newMovie.getMovieName());
+            preparedStatement.setString(2, newMovie.getDescription());
+            preparedStatement.setString(3, newMovie.getGenre());
+            preparedStatement.setString(4, newMovie.getDirector());
+            preparedStatement.setInt(5, newMovie.getDuration());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            preparedStatement.setString(6, newMovie.getReleasedDate().format(formatter));
+            preparedStatement.setString(7, newMovie.getLanguage());
+            preparedStatement.setString(8, newMovie.getCountry());
+            preparedStatement.setString(9, newMovie.getTrailer());
+            preparedStatement.setString(10, newMovie.getStartDate().format(formatter));
+            preparedStatement.setString(11, newMovie.getStatus());
+            preparedStatement.setDouble(12, newMovie.getImportPrice());
+            preparedStatement.setString(13, newMovie.getImageSource());
+            int rowsAffected = preparedStatement.executeUpdate();
+            System.out.println(rowsAffected + " row(s) inserted successfully.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

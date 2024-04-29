@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import dao.MovieDAO;
 import entity.Movie;
 
 public class MovieTableModel extends AbstractTableModel {
@@ -12,9 +13,11 @@ public class MovieTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private List<Movie> movieList;
 	private String[] columnNames = { "Name", "Status", "Duration" };
-	
-	public MovieTableModel(List<Movie> movieList) {
-		this.movieList = movieList;
+	private MovieDAO movieDAO;	
+
+	public MovieTableModel() {
+		movieDAO = new MovieDAO();
+		movieList = movieDAO.getAllMovie();
 	}
 
 	@Override
@@ -41,12 +44,18 @@ public class MovieTableModel extends AbstractTableModel {
 			case 1:
 				return movie.getStatus();
 			case 2:
-				Duration duration = movie.getDuration();
+				int durationInt = movie.getDuration();
+				Duration duration = Duration.ofMinutes(durationInt);
 				long hours = duration.toHours();
 				long minutes = duration.toMinutes() % 60;
 				return String.format("%01dh%02dm", hours, minutes);
 		}
 		return null;
+	}
+
+	public void refresh() {
+		movieList = movieDAO.getAllMovie();
+		this.fireTableDataChanged();
 	}
 
 }

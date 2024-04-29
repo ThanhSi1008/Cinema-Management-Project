@@ -28,12 +28,11 @@ public class FormMovieManagement extends JPanel {
 	private JComboBox<String> comboBoxFilter;
 	private JTable tableMovies;
 
-	private MovieDAO movieDAO;
 	private AddMovieDialog addMovieDialog;
 
-	public FormMovieManagement() {
+	private MovieTableModel movieTableModel;
 
-		movieDAO = new MovieDAO();
+	public FormMovieManagement() {
 
 		initComponents();
 		addEvents();
@@ -43,6 +42,7 @@ public class FormMovieManagement extends JPanel {
 		btnAddMovie.addActionListener(e -> {
 			Thread thread = new Thread(() -> {
 				addMovieDialog = new AddMovieDialog();
+				addMovieDialog.setMovieTableModel(movieTableModel);
 				addMovieDialog.setModal(true);
 				addMovieDialog.setVisible(true);
 			});
@@ -87,8 +87,7 @@ public class FormMovieManagement extends JPanel {
 		add(topPanel, BorderLayout.NORTH);
 
 		// Create table for movie display
-		List<Movie> movieList = movieDAO.getAllMovie();
-		MovieTableModel movieTableModel = new MovieTableModel(movieList);
+		movieTableModel = new MovieTableModel();
 		tableMovies = new JTable(movieTableModel);
 		JScrollPane scrollPane = new JScrollPane(tableMovies);
 		add(scrollPane, BorderLayout.CENTER);

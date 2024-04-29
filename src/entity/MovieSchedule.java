@@ -12,7 +12,7 @@ public class MovieSchedule {
 	public MovieSchedule(LocalDateTime screeningTime, Movie movie, Room room) {
 		super();
 		this.screeningTime = screeningTime;
-		setEndTime();
+//		setEndTime();
 		this.movie = movie;
 		this.room = room;
 	}
@@ -37,14 +37,14 @@ public class MovieSchedule {
 		return endTime;
 	}
 
-	// Cần xem lại method này!
-	public void setEndTime() {
-		if (screeningTime != null && movie.getDuration() != null) {
-			endTime = screeningTime.plus(movie.getDuration());
-		} else {
-			System.out.println("Không thể tính thời gian kết thúc!");
-		}
-	}
+//	// Cần xem lại method này!
+//	public void setEndTime() {
+//		if (screeningTime != null && movie.getDuration() != null) {
+//			endTime = screeningTime.plus(movie.getDuration());
+//		} else {
+//			System.out.println("Không thể tính thời gian kết thúc!");
+//		}
+//	}
 
 	public Movie getMovie() {
 		return movie;
